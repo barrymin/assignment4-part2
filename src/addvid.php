@@ -1,5 +1,8 @@
-<html>
 <?php
+//removing delete params after deleting everything
+if(isset($_GET["delete"]) && $_GET["delete"] == "all" ){
+   header('location: http://web.engr.oregonstate.edu/~barrymin/addvid.php');
+}
 echo '<head><link rel="stylesheet" href="style2.css"></head>';
 error_reporting(E_ALL);
 ini_set('didspllay_errors','On');
@@ -9,21 +12,28 @@ $mysqli = new mysqli("oniddb.cws.oregonstate.edu", "barrymin-db", "kBL9VlPsjkWf9
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
+    
 //case where form is submitted to add a video
 if(isset($_POST['vid-name']) && isset($_POST['vid-category'])
     && isset($_POST['vid-length']) && ($_POST['vid-length'] >=0) ){
-	echo "ready to prepare";
-	if (!($stmt = $mysqli->prepare("INSERT INTO Videos(name, category, length, rented) VALUES (?,?,?,0)"))) {
-        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-    }
-	if (!$stmt->bind_param("ssi", $_POST['vid-name'],$_POST['vid-category'],$_POST['vid-length'])) {
-        echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-    }
+	if($_POST['vid-name']!= "") {
+		
+	    if (!($stmt = $mysqli->prepare("INSERT INTO Videos(name, category, length, rented) VALUES (?,?,?,0)"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+	    if (!$stmt->bind_param("ssi", $_POST['vid-name'],$_POST['vid-category'],$_POST['vid-length'])) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
 
-    if (!$stmt->execute()) {
-        echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-    }
-    $stmt->close();
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        $stmt->close();
+	} else {
+        if ($_POST['vid-name'] == "") {
+			echo "Name must not be empty.";
+		}
+	}
 } else{
     if(isset($_POST['vid-length']) && $_POST['vid-length'] <= 0){
         echo "You must enter a positive length.";
@@ -38,7 +48,8 @@ if(isset($_GET["delete"]) && $_GET["delete"] == "all"){
         echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
     }
     $stmt->close();
-	//unset params	
+	header( 'Location: http://web.engr.oregonstate.edu' ) ;
+   
 } 
 //delete a video
 if(isset($_GET["delete"]) && $_GET["delete"] != "all" && $_GET["delete"] != "" ){
