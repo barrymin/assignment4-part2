@@ -1,0 +1,27 @@
+Start: Sun, 10 May 2015 19:00:00 -0700
+End: Sun, 10 May 2015 20:48:37 -0700
+Tasks: changed code so that after using delete all button get parameters will be removed
+
+Start: Sun, 10 May 2015 17:30:00 -0700
+End: Sun, 10 May 2015 18:00:30 -0700
+Tasks: rent/return button now changes the checked out status of video
+
+Start: sat, 09 May 2015 19:50:00 -0700
+End: sat, 09 May 2015 20:30:13 -0700
+Tasks: made delete buttons in table now delete the entry from database
+
+Start: sat, 09 May 2015 16:50:00 -0700
+End: sat, 09 May 2015 19:35:04 -0700
+Tasks: wrote code to display delete all button and delete all rows from database
+
+Start: sat, 09 May 2015 16:50:00 -0700
+End: sat, 09 May 2015 19:35:04 -0700
+Tasks: wrote code to display filter form and filter table
+
+Start: sat, 09 May 2015 14:21:00 -0700
+End: sat, 09 May 2015 16:40:34 -0700
+Tasks: wrote code to get data from databse and display table
+
+Start: sat, 09 May 2015 13:00:00 -0700
+End: sat, 09 May 2015 14:20:45 -0700
+Tasks: created add video form
